@@ -17,49 +17,46 @@ export default function WorkingHours() {
 
   return (
     <motion.div 
-      initial={{ opacity: 0, scale: 0.9, x: 40 }}
-      animate={{ opacity: 1, scale: 1.25, x: 0 }}
+      initial={{ opacity: 0, scale: 0.9, x: 30 }}
+      animate={{ opacity: 1, scale: 1.15, x: 0 }}
       transition={{ delay: 0.5, duration: 0.8, ease: 'easeOut' }}
-      className="absolute top-40 right-6 md:right-16 z-20 group hidden sm:block"
-      style={{ perspective: '1800px', transformStyle: 'preserve-3d' }}
+      className="absolute top-44 right-6 md:right-12 z-20 group hidden sm:block"
+      style={{ perspective: '1200px', transformStyle: 'preserve-3d' }}
     >
-      {/* 3D Silindrik/Konkav Qövs Yaradan Ana Korpus */}
+      {/* 3D Master Korpus */}
       <div 
         style={{ 
-          transform: 'rotateY(-32deg) rotateX(4deg)',
+          transform: 'rotateY(-28deg) rotateX(6deg)',
           transformStyle: 'preserve-3d'
         }}
-        className="relative rounded-2xl p-[1px] shadow-[0_50px_80px_-20px_rgba(0,0,0,0.95)] backdrop-blur-xl transition-all duration-700"
+        className="relative p-[1px] transition-all duration-700"
       >
         
-        {/* Sakit, göz oxşayan lüks dərin okean və qızıl dumanlı border kölgəsi (Premium Soft Glow) */}
-        <div className="absolute -inset-[2px] rounded-2xl bg-gradient-to-r from-blue-950/50 via-slate-800/40 to-amber-950/30 opacity-60 blur-[3px] group-hover:opacity-100 transition-all duration-700 -z-10" />
+        {/* Yumşaq Qızılı-Dumanlı Kölgə (Bərbər Tərzinə Tam Uyğun) */}
+        <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-r from-amber-600/20 via-yellow-500/15 to-neutral-800/40 blur-[3px] group-hover:blur-[5px] transition-all duration-700 -z-10" />
 
-        {/* PANORAMİK IMAX BÜKÜLMƏSİ (İçəri doğru fiziki bükülmüş vahid şüşə panel) */}
+        {/* Gerçək Hamar Qövs - Dördbucaq blur problemini həll edən lüks daxili kart */}
         <div 
           style={{ 
-            transform: 'translateZ(20px)',
-            background: 'linear-gradient(135deg, rgba(12,18,33,0.96) 0%, rgba(3,7,18,0.98) 100%)',
-            clipPath: 'path("M0,0 Q120,8 240,0 L240,70 Q120,78 0,70 Z")'
+            transform: 'translateZ(10px)',
+            background: 'linear-gradient(135deg, rgba(20,20,20,0.92) 0%, rgba(10,10,10,0.98) 100%)',
+            borderRadius: '16px 4px 16px 4px'
           }}
-          className="relative rounded-2xl w-[260px] h-[74px] flex items-center justify-start px-6 gap-4 border border-blue-900/20"
+          className="relative w-[250px] py-4 flex items-center justify-start px-5 gap-4 border border-amber-500/10 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.9)]"
         >
           
-          {/* Sakit Status İşığı */}
-          <div className="relative flex h-3 w-3 shrink-0 items-center justify-center mt-1">
-            <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-60 ${isOpen ? 'bg-emerald-400' : 'bg-rose-400'}`} />
+          {/* Status İşığı */}
+          <div className="relative flex h-2.5 w-2.5 shrink-0 items-center justify-center">
+            <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isOpen ? 'bg-emerald-400' : 'bg-rose-400'}`} />
             <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${isOpen ? 'bg-emerald-500' : 'bg-rose-500'}`} />
           </div>
           
-          {/* Tipoqrafiya və Bucaq Altında Yazılar */}
-          <div 
-            style={{ transform: 'rotateY(10deg)', transformStyle: 'preserve-3d' }}
-            className="flex flex-col text-left space-y-1 origin-left mt-1"
-          >
-            <span className="text-[10px] tracking-[0.32em] text-zinc-400 font-bold uppercase font-sans">
+          {/* Tipoqrafiya */}
+          <div className="flex flex-col text-left space-y-1">
+            <span className="text-[10px] tracking-[0.3em] text-zinc-400 font-bold uppercase font-sans">
               {isOpen ? 'HAZIRDA AÇIQIQ' : 'HAZIRDA BAĞLIYIQ'}
             </span>
-            <span className="text-[16px] font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-100 to-amber-500 font-mono tracking-wider">
+            <span className="text-[15px] font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-100 to-amber-500 font-mono tracking-wide">
               Hər gün: 09:00 – 21:00
             </span>
           </div>
