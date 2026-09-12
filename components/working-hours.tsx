@@ -21,7 +21,7 @@ export default function WorkingHours() {
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ delay: 0.4, duration: 0.6, ease: 'easeOut' }}
       /* fixed sinfi sayəsində ekran balacalaşsa da tam sağ küncdə daş kimi sabit qalacaq */
-      className="fixed top-24 right-4 md:top-28 md:right-8 z-[9999] select-none pointer-events-auto"
+      className="absolute top-24 right-4 md:top-28 md:right-8 z-50 hidden sm:block select-none pointer-events-auto"
     >
       <div 
         style={{
