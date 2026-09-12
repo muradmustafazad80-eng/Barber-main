@@ -27,20 +27,35 @@ type Result = { done: boolean; visit: number; gift: boolean; name: string }
 export function ReservationSection() {
   const [result, setResult] = useState<Result>({ done: false, visit: 0, gift: false, name: '' })
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    const data = new FormData(e.currentTarget)
-    const name = String(data.get('name') || '').trim()
-    const phone = String(data.get('phone') || '')
-    const key = normalizePhone(phone)
+    
+    const formData = new FormData(e.currentTarget)
+    const name = String(formData.get('name') || '').trim()
+    const phone = String(formData.get('phone') || '')
 
-    const prev = visitStore.get(key) ?? 0
-    const visit = prev + 1
-    visitStore.set(key, visit)
-    const gift = visit % 10 === 0
+    const res = await fetch('/api/bookings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        customerName: name,
+        customerPhone: phone,
+        barberId: 'demo-barber-id', 
+        serviceId: 'demo-service-id', 
+        dateTime: new Date().toISOString()
+      })
+    })
 
-    setResult({ done: true, visit, gift, name: name.split(' ')[0] || 'əziz müştəri' })
+    const bookingRes = await res.json()
+
+    if (bookingRes.success) {
+      setResult({ done: true, visit: 1, gift: false, name: name })
+    } else {
+      alert(bookingRes.error || 'Sifariş zamanı xəta baş verdi!')
+    }
   }
+
+
 
   function reset() {
     setResult({ done: false, visit: 0, gift: false, name: '' })

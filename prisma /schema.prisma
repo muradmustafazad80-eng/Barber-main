@@ -30,17 +30,20 @@ model Customer {
 }
 
 model Barber {
-  id        String    @id @default(uuid())
-  userId    String?   @unique
-  user      User?     @relation(fields: [userId], references: [id])
-  name      String
-  image     String
-  specialty String
-  status    String    @default("active")
-  createdAt DateTime  @default(now())
-  bookings  Booking[]
-  reviews   Review[]
+  id             String               @id @default(uuid())
+  userId         String?              @unique
+  user           User?                @relation(fields: [userId], references: [id])
+  name           String
+  image          String
+  specialty      String
+  status         String               @default("active")
+  createdAt      DateTime             @default(now())
+  bookings       Booking[]
+  reviews        Review[]
+  availabilities BarberAvailability[] // BURA ƏLAVƏ OLUNDU
+  blockedSlots   BlockedSlot[]        // BURA ƏLAVƏ OLUNDU
 }
+
 
 model Service {
   id          String    @id @default(uuid())
@@ -107,4 +110,26 @@ model BusinessSetting {
   id    String @id @default(uuid())
   key   String @unique
   value String
+}
+
+model BarberAvailability {
+  id         String   @id @default(uuid())
+  barberId   String
+  barber     Barber   @relation(fields: [barberId], references: [id])
+  dayOfWeek  Int      // 0 (Bazar) - 6 (Şənbə)
+  startTime  String   // Örnək: "09:00"
+  endTime    String   // Örnək: "21:00"
+  createdAt  DateTime @default(now())
+
+  @@unique([barberId, dayOfWeek])
+}
+
+model BlockedSlot {
+  id        String   @id @default(uuid())
+  barberId  String
+  barber    Barber   @relation(fields: [barberId], references: [id])
+  startHour DateTime // Bloklanan tam tarix və saat
+  endHour   DateTime
+  reason    String?
+  createdAt DateTime @default(now())
 }
