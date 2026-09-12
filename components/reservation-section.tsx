@@ -27,23 +27,33 @@ type Result = { done: boolean; visit: number; gift: boolean; name: string }
 export function ReservationSection() {
   const [result, setResult] = useState<Result>({ done: false, visit: 0, gift: false, name: '' })
 
-          async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+            async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     
     const formData = new FormData(e.currentTarget)
     const name = String(formData.get('name') || '').trim()
     const phone = String(formData.get('phone') || '')
+    const date = String(formData.get('date') || '')
+    const time = String(formData.get('time') || '')
+    const service = String(formData.get('service') || '')
+    // Əgər formda barber select-i yoxdursa default dəyər ötürürük
+    const barber = String(formData.get('barber') || 'Ustad Əli') 
 
-    // Stage 2: Məlumatları real olaraq bizim açdığımız API marşrutuna göndəririk
+    if (!date || !time || !service) {
+      alert('Zəhmət olmasa tarix, vaxt və xidməti tam seçin!')
+      return
+    }
+
+    // Stage 2: Real form datalarını bizim yenilədiyimiz təhlükəsiz API-ya vuruq
     const res = await fetch('/api/bookings', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         customerName: name,
         customerPhone: phone,
-        barberId: 'demo-barber-id', 
-        serviceId: 'demo-service-id', 
-        dateTime: new Date().toISOString()
+        barberName: barber, 
+        serviceName: service, 
+        dateTime: `${date}T${time}:00`
       })
     })
 
@@ -52,8 +62,8 @@ export function ReservationSection() {
     if (bookingRes.success) {
       setResult({ done: true, visit: 2, gift: false, name: name })
     } else {
-      // Əgər saat doludursa, bazadan gələn real toqquşma xətasını ekranda göstər
-      alert(bookingRes.error || 'Sifariş zamanı xəta baş verdi!')
+      // ARXA FONDAN GƏLƏN REAL TOQQUŞMA KİLİD XƏTASI
+      alert(bookingRes.error)
     }
   }
 
