@@ -1,62 +1,85 @@
-import { Scissors, Sparkles, Droplets, Crown, Baby, Flame } from 'lucide-react'
-import { SectionHeading } from '@/components/section-heading'
+'use client'
 
-const services = [
-  {
-    icon: Scissors,
-    title: 'Klassik Saç Kəsimi',
-    desc: 'Formaya uyğun peşəkar kəsim, yuma və styling daxil olmaqla.',
-  },
-  {
-    icon: Flame,
-    title: 'Saqqal Formalaşdırma',
-    desc: 'İsti dəsmal, ülgüc və dəqiq kontur ilə saqqal qulluğu.',
-  },
-  {
-    icon: Droplets,
-    title: 'Royal Ülgüc Təraş',
-    desc: 'Ənənəvi isti köpük və ülgüclə lüks üz təraşı ritualı.',
-  },
-  {
-    icon: Crown,
-    title: 'VIP Paket',
-    desc: 'Kəsim, saqqal, üz maskası və içki daxil tam qulluq.',
-  },
-  {
-    icon: Baby,
-    title: 'Uşaq Kəsimi',
-    desc: 'Kiçik centlmenlər üçün rahat və əyləncəli təcrübə.',
-  },
-  {
-    icon: Sparkles,
-    title: 'Saç Boyama & Qulluq',
-    desc: 'Ağarma örtüyü, ton və dərin qulluq prosedurları.',
-  },
-]
+import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
+import { Scissors, Sparkles, Droplets, Crown, Flame } from 'lucide-react'
+import { SectionHeading }  from '@/components/section-heading'
 
-export function ServicesSection() {
+interface ServiceItem {
+  id: string
+  name: string
+  price: number
+  duration: number
+  category: string
+}
+
+const iconMap: Record<string, any> = {
+  'Hair': Scissors,
+  'Beard': Flame,
+  'Care': Droplets,
+  'VIP': Crown,
+}
+
+export default function ServicesSection() {
+  const [services, setServices] = useState<ServiceItem[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetch('/api/services')
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) setServices(data)
+        setLoading(false)
+      })
+      .catch(() => setLoading(false))
+  }, [])
+
+  if (loading) return <div className="text-center py-20 text-zinc-500 font-mono">Yüklənir...</div>
+
   return (
-    <section id="xidmetler" className="scroll-mt-20 py-24 md:py-32">
-      <div className="mx-auto max-w-6xl px-4 md:px-6">
+    <section id="services" className="relative py-24 md:py-32 overflow-hidden bg-black">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(217,119,6,0.03),transparent_50%)]" />
+      
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <SectionHeading
           eyebrow="XİDMƏTLƏR"
-          title="Ustalıqla göstərilən xidmətlər"
-          description="Hər detala diqqətlə yanaşan usta komandamız sizə salon deyil, təcrübə təqdim edir."
+          title="Premium Xidmətlərimiz"
+          description ="Hər bir detal lüks və rahatlığınız üçün düşünülüb"
         />
 
-        <div className="mt-16 grid gap-px overflow-hidden rounded-lg border border-border/60 bg-border/60 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((s) => (
-            <div
-              key={s.title}
-              className="group bg-card p-8 transition-colors hover:bg-secondary"
-            >
-              <div className="flex size-12 items-center justify-center rounded-sm border border-primary/30 bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                <s.icon className="size-5" aria-hidden="true" />
-              </div>
-              <h3 className="mt-6 font-serif text-xl font-semibold">{s.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
-            </div>
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-12 md:mt-16">
+          {services.map((service, index) => {
+            const IconComponent = iconMap[service.category] || Sparkles
+            return (
+              <motion.div
+                key={service.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ y: -4, borderColor: 'rgba(217, 119, 6, 0.3)' }}
+                className="relative p-6 md:p-8 rounded-2xl bg-gradient-to-b from-zinc-900/40 to-zinc-950/60 border border-zinc-800/40 backdrop-blur-md flex items-start gap-5 transition-all duration-300 group"
+              >
+                <div className="p-3 rounded-xl bg-amber-500/5 border border-amber-500/10 text-amber-500 group-hover:bg-amber-500/10 group-hover:text-amber-400 transition-all duration-300">
+                  <IconComponent className="h-6 w-6" />
+                </div>
+                
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-baseline justify-between gap-4">
+                    <h3 className="text-xl font-medium text-zinc-100 group-hover:text-amber-400 transition-colors duration-300 truncate">
+                      {service.name}
+                    </h3>
+                    <span className="text-xl font-bold font-mono text-amber-500 shrink-0">
+                      {service.price} AZN
+                    </span>
+                  </div>
+                  <p className="text-sm text-zinc-400 mt-2 line-clamp-2">
+                    Müddət: {service.duration} dəqiqə • Kateqoriya: {service.category}
+                  </p>
+                </div>
+              </motion.div>
+            )
+          })}
         </div>
       </div>
     </section>
