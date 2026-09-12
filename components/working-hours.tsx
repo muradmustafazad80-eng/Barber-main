@@ -20,29 +20,28 @@ export default function WorkingHours() {
       initial={{ opacity: 0, scale: 0.95, y: -10 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ delay: 0.4, duration: 0.6, ease: 'easeOut' }}
-      className="absolute top-24 right-4 md:top-28 md:right-8 z-50 hidden sm:block select-none pointer-events-auto"
+      className="absolute top-24 right-4 md:top-28 md:right-8 z-50 hidden sm:block select-none pointer-events-auto group"
     >
       <div 
         style={{
           perspective: '1200px',
           transformStyle: 'preserve-3d'
         }}
-        className="relative"
       >
-        {/* Hover zamanı böyüyən (group-hover:scale-105) və ətrafında dönən lüks border daşıyan ana gövdə */}
+        {/* Hover zamanı böyüyən gövdə */}
         <div 
           style={{
             transform: 'rotateY(-20deg) rotateX(4deg)',
             transformStyle: 'preserve-3d',
             background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.96) 0%, rgba(5, 5, 5, 0.98) 100%)',
           }}
-          className="w-[220px] p-3.5 md:w-[280px] md:p-5 rounded-xl md:rounded-2xl border border-amber-500/10 flex items-center justify-start gap-3 md:gap-4 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.9)] transition-all duration-500 group-hover:scale-105 group-hover:border-transparent relative overflow-hidden"
+          className="w-[220px] p-3.5 md:w-[280px] md:p-5 rounded-xl md:rounded-2xl border border-amber-500/10 flex items-center justify-start gap-3 md:gap-4 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.9)] transition-all duration-500 group-hover:scale-105 group-hover:border-amber-500/30 relative overflow-hidden"
         >
-          {/* Ətrafında yavaşca dönən müasir sehrli gradient border zolağı */}
-          <div className="absolute -inset-[200%] bg-[conic-gradient(from_0deg,transparent_40%,#d97706_50%,#3b82f6_60%,transparent_70%)] animate-[spin_6s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
+          {/* Ətrafında yavaşca fırlanan lüks qızılı-mavi dairəvi border */}
+          <div className="absolute -inset-[200%] bg-[conic-gradient(from_0deg,transparent_40%,#d97706_50%,#3b82f6_60%,transparent_70%)] animate-spin opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" style={{ animationDuration: '4s' }} />
           
-          {/* İçəridəki qara fonun borderin altından çıxmaması üçün maska pərdəsi */}
-          <div className="absolute inset-[1px] bg-neutral-950 rounded-[inherit] -z-10 transition-colors duration-300 group-hover:bg-neutral-900/95" />
+          {/* Daxili fon maskası */}
+          <div className="absolute inset-[1px] bg-neutral-950 rounded-[inherit] -z-10 transition-colors duration-300 group-hover:bg-neutral-900" />
 
           {/* Status İşığı */}
           <div className="relative flex h-2.5 w-2.5 md:h-3 md:w-3 shrink-0 items-center justify-center">
