@@ -17,52 +17,48 @@ export default function WorkingHours() {
 
   return (
     <motion.div 
-      initial={{ opacity: 0, scale: 0.9, x: 30 }}
-      animate={{ opacity: 1, scale: 1.15, x: 0 }}
-      transition={{ delay: 0.5, duration: 0.8, ease: 'easeOut' }}
-      className="absolute top-44 right-6 md:right-12 z-20 group hidden sm:block"
-      style={{ perspective: '1200px', transformStyle: 'preserve-3d' }}
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: 0.4, duration: 0.6 }}
+      className="absolute top-44 right-6 md:right-16 z-20 hidden sm:block select-none"
     >
-      {/* 3D Master Korpus */}
+      {/* 3D Hamar Silindrik Qövs (Sənin göndərdiyin sxemin eynisi) */}
       <div 
-        style={{ 
-          transform: 'rotateY(-28deg) rotateX(6deg)',
+        style={{
+          perspective: '1000px',
           transformStyle: 'preserve-3d'
         }}
-        className="relative p-[1px] transition-all duration-700"
+        className="relative"
       >
-        
-        {/* Yumşaq Qızılı-Dumanlı Kölgə (Bərbər Tərzinə Tam Uyğun) */}
-        <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-r from-amber-600/20 via-yellow-500/15 to-neutral-800/40 blur-[3px] group-hover:blur-[5px] transition-all duration-700 -z-10" />
-
-        {/* Gerçək Hamar Qövs - Dördbucaq blur problemini həll edən lüks daxili kart */}
         <div 
-          style={{ 
-            transform: 'translateZ(10px)',
-            background: 'linear-gradient(135deg, rgba(20,20,20,0.92) 0%, rgba(10,10,10,0.98) 100%)',
-            borderRadius: '16px 4px 16px 4px'
+          style={{
+            transform: 'rotateY(-35deg) rotateX(4deg) scale(1.15)',
+            transformStyle: 'preserve-3d',
+            background: 'linear-gradient(145deg, rgba(15, 15, 15, 0.85) 0%, rgba(5, 5, 5, 0.95) 100%)',
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
+            textShadow: '0 2px 10px rgba(0,0,0,0.5)'
           }}
-          className="relative w-[250px] py-4 flex items-center justify-start px-5 gap-4 border border-amber-500/10 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.9)]"
+          className="w-[270px] px-6 py-4 rounded-xl border border-amber-500/20 flex items-center gap-4 transition-all duration-500 hover:border-amber-500/40"
         >
-          
+          {/* İncə, göz oxşayan lüks qızılı kənar dumanı */}
+          <div className="absolute -inset-[1px] rounded-xl bg-gradient-to-r from-amber-500/10 via-amber-500/20 to-transparent blur-[2px] -z-10" />
+
           {/* Status İşığı */}
           <div className="relative flex h-2.5 w-2.5 shrink-0 items-center justify-center">
             <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isOpen ? 'bg-emerald-400' : 'bg-rose-400'}`} />
             <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${isOpen ? 'bg-emerald-500' : 'bg-rose-500'}`} />
           </div>
-          
+
           {/* Tipoqrafiya */}
-          <div className="flex flex-col text-left space-y-1">
-            <span className="text-[10px] tracking-[0.3em] text-zinc-400 font-bold uppercase font-sans">
+          <div className="flex flex-col text-left space-y-0.5">
+            <span className="text-[10px] tracking-[0.35em] text-zinc-400 font-bold uppercase">
               {isOpen ? 'HAZIRDA AÇIQIQ' : 'HAZIRDA BAĞLIYIQ'}
             </span>
-            <span className="text-[15px] font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-100 to-amber-500 font-mono tracking-wide">
+            <span className="text-[16px] font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-100 to-amber-500 font-mono tracking-wide">
               Hər gün: 09:00 – 21:00
             </span>
           </div>
-
         </div>
-
       </div>
     </motion.div>
   )
