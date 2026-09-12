@@ -27,13 +27,14 @@ type Result = { done: boolean; visit: number; gift: boolean; name: string }
 export function ReservationSection() {
   const [result, setResult] = useState<Result>({ done: false, visit: 0, gift: false, name: '' })
 
-        async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+          async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     
     const formData = new FormData(e.currentTarget)
     const name = String(formData.get('name') || '').trim()
     const phone = String(formData.get('phone') || '')
 
+    // Stage 2: Məlumatları real olaraq bizim açdığımız API marşrutuna göndəririk
     const res = await fetch('/api/bookings', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -49,11 +50,13 @@ export function ReservationSection() {
     const bookingRes = await res.json()
 
     if (bookingRes.success) {
-      setResult({ done: true, visit: 1, gift: false, name: name })
+      setResult({ done: true, visit: 2, gift: false, name: name })
     } else {
+      // Əgər saat doludursa, bazadan gələn real toqquşma xətasını ekranda göstər
       alert(bookingRes.error || 'Sifariş zamanı xəta baş verdi!')
     }
   }
+
 
 
 
