@@ -1,12 +1,22 @@
 import { NextResponse } from 'next/server'
-import { createBooking } from '@/app/actions/bookings'
+import { createBooking } from '../../actions/bookings'
 
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const result = await createBooking(body)
+    
+    // Gələn form məlumatlarını birbaşa bizim Mərhələ 2 mühərrikinə ötürürük
+    const result = await createBooking({
+      customerName: body.customerName,
+      customerPhone: body.customerPhone,
+      barberName: body.barberName || 'Ustad Əli',
+      serviceName: body.serviceName,
+      dateTime: body.dateTime
+    })
+
     return NextResponse.json(result)
   } catch (error) {
-    return NextResponse.json({ success: false, error: 'Server xətası!' }, { status: 500 })
+    console.error('API Error:', error)
+    return NextResponse.json({ success: false, error: 'Baza qoşulma xətası!' }, { status: 500 })
   }
 }
