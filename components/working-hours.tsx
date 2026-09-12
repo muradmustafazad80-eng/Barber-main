@@ -17,10 +17,10 @@ export default function WorkingHours() {
 
   return (
     <motion.div 
-      initial={{ opacity: 0, scale: 0.95, x: 20 }}
-      animate={{ opacity: 1, scale: 1, x: 0 }}
+      initial={{ opacity: 0, scale: 0.95, y: -20 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ delay: 0.4, duration: 0.6, ease: 'easeOut' }}
-      className="absolute top-48 right-6 md:right-16 z-20 hidden sm:block select-none"
+      className="absolute top-4 right-4 md:top-6 md:right-8 z-50 hidden sm:block select-none"
     >
       <div 
         style={{
@@ -29,7 +29,7 @@ export default function WorkingHours() {
         }}
         className="relative"
       >
-        {/* Tam Simmetrik, Sağa Meyilli Lüks 3D Gövdə */}
+        {/* Tam Sağ Yuxarıda Sabitlənmiş Lüks 3D Gövdə */}
         <div 
           style={{
             transform: 'rotateY(-25deg) rotateX(4deg)',
@@ -38,16 +38,16 @@ export default function WorkingHours() {
           }}
           className="w-[280px] p-5 rounded-2xl border border-amber-500/15 flex items-center justify-start gap-4 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] transition-all duration-500 hover:border-amber-500/30"
         >
-          {/* Arxadakı göz oxşayan sakit qızılı parıltı (No Blur Bug) */}
+          {/* İncə sakit qızılı parıltı */}
           <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-r from-amber-500/5 via-amber-500/10 to-transparent -z-10" />
 
-          {/* Tam Simmetrik Dairəvi Status İşığı */}
+          {/* Dairəvi Status İşığı */}
           <div className="relative flex h-3 w-3 shrink-0 items-center justify-center">
             <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-60 ${isOpen ? 'bg-emerald-400' : 'bg-rose-400'}`} />
             <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${isOpen ? 'bg-emerald-500' : 'bg-rose-500'}`} />
           </div>
 
-          {/* Tipoqrafiya və İncə Aralıqlar */}
+          {/* Tipoqrafiya */}
           <div className="flex flex-col text-left space-y-1">
             <span className="text-[10px] tracking-[0.35em] text-zinc-400 font-bold uppercase leading-none">
               {isOpen ? 'HAZIRDA AÇIQIQ' : 'HAZIRDA BAĞLIYIQ'}
