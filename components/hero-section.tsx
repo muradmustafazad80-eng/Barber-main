@@ -40,7 +40,6 @@ export function HeroSection() {
       </div>
 
       <div ref={root} className="relative mx-auto w-full max-w-6xl px-4 pt-28 md:px-6 md:pt-20">
-        <WorkingHours />
         <div className="max-w-2xl">
           <div className="hero-anim mb-6 inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-4 py-1.5 opacity-0">
             <span className="flex items-center gap-0.5 text-primary">

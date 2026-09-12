@@ -1,4 +1,5 @@
 import { SiteHeader } from '@/components/site-header'
+import WorkingHours from '@/components/working-hours'
 import { HeroSection } from '@/components/hero-section'
 import { ServicesSection } from '@/components/services-section'
 import { HairstylePreviewSection } from '@/components/hairstyle-preview-section'
@@ -10,11 +11,11 @@ import { ContactSection } from '@/components/contact-section'
 import { SiteFooter } from '@/components/site-footer'
 import { CinematicIntro } from '@/components/animations/cinematic-intro'
 import { SpotlightSection } from '@/components/animations/spotlight-section'
-import WorkingHours from '@/components/working-hours'
 
 export default function Page() {
   return (
     <div className="min-h-screen bg-background">
+      <WorkingHours />
       <CinematicIntro />
       <SiteHeader />
       <main>
